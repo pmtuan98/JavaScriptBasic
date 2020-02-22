@@ -2,18 +2,17 @@
 var readLineSync = require('readline-sync');
 var fs = require('fs');
 
-// Funtion Menu() to display menu of contact with 
-// options
+// Funtion Menu() to display menu of contact with options
 function Menu(){
-console.log('======= SIMPLE CONTACT ======');
-console.log('1.Show all contacts');
-console.log('2.Add new contact');
-console.log('3.Edit contact');
-console.log('4.Delete contact');
-console.log('5.Search contact');
-console.log('6.Exit');
-console.log('Enter your choice: ');
-var option = readLineSync.question('> ');
+	console.log('======= SIMPLE CONTACT ======');
+	console.log('1.Show all contacts');
+	console.log('2.Add new contact');
+	console.log('3.Edit contact');
+	console.log('4.Delete contact');
+	console.log('5.Search contact');
+	console.log('6.Exit');
+	console.log('Enter your choice: ');
+	var option = readLineSync.question('> ');
 	switch(option){
 		case '1':
 			showAllContact();
@@ -43,9 +42,10 @@ var option = readLineSync.question('> ');
 			break;
 	}
 }
+
+
 // Function loadData() load data from created file name
 // 'data.json'
-
 var contacts = [];
 function loadData(){
 	var dataContact = fs.readFileSync('./data.json');
@@ -54,18 +54,16 @@ function loadData(){
 
 // Function showAllContact() shows all contact from 
 // file 'data.json'
-
 function showAllContact(){
 	console.log('********* LIST OF CONTACT ********');
 	for(var contact of contacts){
-
 		console.log(contact.No, contact.Name, contact.Phone);
 	}
 }
 
+
 // Function addNewContact() add new contact to 
 // file 'data.json'
-
 function addNewContact(){
 	var number = readLineSync.question('No: ');
 	var name = readLineSync.question('Name: ');
