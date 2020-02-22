@@ -2,7 +2,8 @@
 var readLineSync = require('readline-sync');
 var fs = require('fs');
 
-// Funtion Menu() to display menu of contact with options
+// Funtion Menu() to display menu of contact with 
+// options
 function Menu(){
 console.log('======= SIMPLE CONTACT ======');
 console.log('1.Show all contacts');
@@ -42,14 +43,17 @@ var option = readLineSync.question('> ');
 			break;
 	}
 }
-//Function loadData() load data from created file name
+// Function loadData() load data from created file name
 // 'data.json'
+
 var contacts = [];
 function loadData(){
 	var dataContact = fs.readFileSync('./data.json');
 	contacts = JSON.parse(dataContact);
 }
 
+// Function showAllContact() shows all contact from 
+// file 'data.json'
 
 function showAllContact(){
 	console.log('********* LIST OF CONTACT ********');
@@ -58,6 +62,9 @@ function showAllContact(){
 		console.log(contact.No, contact.Name, contact.Phone);
 	}
 }
+
+// Function addNewContact() add new contact to 
+// file 'data.json'
 
 function addNewContact(){
 	var number = readLineSync.question('No: ');
@@ -73,6 +80,9 @@ function addNewContact(){
 	var data  = JSON.stringify(contacts);
 	fs.writeFileSync('./data.json', data, {encoding: 'utf8'});
 }
+
+// Function editContact() choose contact want to edited,
+// edit it and save
 
 function editContact(){
 	showAllContact();
@@ -93,6 +103,10 @@ function editContact(){
 	fs.writeFileSync('./data.json', data, {encoding: 'utf8'});
 
 }
+
+// Function deleteContact() choose contact 
+// and delete it
+
 function deleteContact(){
 	showAllContact();
 	console.log('Choose contact number you want to delete: ')
@@ -103,6 +117,8 @@ function deleteContact(){
 	fs.writeFileSync('./data.json',data, {encoding: 'utf8'});
 }
 
+// Function searchContact() to find contact
+// with input keyword
 
 function searchContact(){
 	var search = readLineSync.question('Input search keyword: ');
