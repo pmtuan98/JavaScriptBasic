@@ -42,7 +42,8 @@ var option = readLineSync.question('> ');
 			break;
 	}
 }
-
+//Function loadData() load data from created file name
+// 'data.json'
 var contacts = [];
 function loadData(){
 	var dataContact = fs.readFileSync('./data.json');
