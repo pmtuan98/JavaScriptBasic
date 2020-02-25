@@ -56,23 +56,49 @@ function loadData(){
 // file 'data.json'
 function showAllContact(){
 	console.log('********* LIST OF CONTACT ********');
-	for(var contact of contacts){
+	var new_contacts = contacts.sort(function(a,b){
+		return a.No - b.No;
+	})
+	for(var contact of new_contacts){
 		console.log(contact.No, contact.Name, contact.Phone);
 	}
+}
+
+//Function check empty input
+function checkBlank(mess){
+	while(true) {
+		var input = readLineSync.question(mess);
+		if(input.trim() === ''){
+			console.log('Can not be blanked');
+		}else { 
+			return input;
+		}
+	}
+	
 }
 
 
 // Function addNewContact() add new contact to 
 // file 'data.json'
 function addNewContact(){
-	var number = readLineSync.question('No: ');
-	var name = readLineSync.question('Name: ');
-	var phone = readLineSync.question('Phone: ');
+	
+	var number = checkBlank('No: ');
+		for(var i of contacts){
+		while(number == i.No){
+			console.log('Duplicated. Re-input');
+			number = checkBlank('No: ');
+		}
+	  }
+
+	var name = checkBlank('Name: ');
+	var phone = checkBlank('Phone: ');
 	var contact = {
 		No : parseInt(number),
 		Name : name,
 		Phone : parseInt(phone) 
 	}
+	
+	
 	contacts.push(contact);
 	console.log('**** Added successfully! ****');
 	var data  = JSON.stringify(contacts);
@@ -81,10 +107,14 @@ function addNewContact(){
 
 // Function editContact() choose contact want to edited,
 // edit it and save
-
 function editContact(){
 	showAllContact();
 	var option = readLineSync.question('Choose contact number: ');
+	for(var i of contacts){
+		while(i.No !== option){
+			console.log('Number is not exist');
+		}
+	}
 	var newContact = contacts[option-1];
 	console.log(newContact);
 	newNumber = readLineSync.question('No: ');
@@ -99,12 +129,14 @@ function editContact(){
 	console.log('**** Edited successfully! ****');
 	var data  = JSON.stringify(contacts);
 	fs.writeFileSync('./data.json', data, {encoding: 'utf8'});
+	/*Phan edit phai check xem input nhap vao co ton tai hay khong
+		Khong ton tai se thong bao
+		Ton tai moi duoc edit*/
 
 }
 
 // Function deleteContact() choose contact 
 // and delete it
-
 function deleteContact(){
 	showAllContact();
 	console.log('Choose contact number you want to delete: ')
@@ -113,20 +145,22 @@ function deleteContact(){
 	console.log('**** Deleted successfully! ****');
 	var data = JSON.stringify(newContacts);
 	fs.writeFileSync('./data.json',data, {encoding: 'utf8'});
+	/*Check xem input nguoi dung nhap vao co hay khong*/
 }
 
 // Function searchContact() to find contact
 // with input keyword
-
 function searchContact(){
 	var search = readLineSync.question('Input search keyword: ');
 		for(var contact of contacts){
-			if(search ===contact.Name){
+			if(search === contact.Name){
 				console.log(contact.No, contact.Name, contact.Phone);
 			}else{
 				console.log('Not found');
 			}
-	}	
+	}
+
+	/*Can bo sung them search 1 phan*/	
 
 }
 
